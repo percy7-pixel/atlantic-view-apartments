@@ -27,17 +27,20 @@ Everything below the hero is lazy-loaded.
 
 ## 2. Before going live — the two-minute checklist
 
-1. **WhatsApp number.** Open `assets/js/main.js` and change:
+1. **WhatsApp number.** Open `assets/js/main.js` and change the one configured value:
 
    ```js
-   whatsappNumber: '237000000000',        // digits only, full international format
-   whatsappDisplay: '+237 000 000 000',   // how it reads in the footer
+   whatsappNumber: '237653317507',   // digits only, full international format
    ```
 
-   `237000000000` is a deliberate placeholder, not a real number. The footer also has a plain
-   HTML fallback link on the general WhatsApp buttons — update those `href="https://wa.me/…"`
-   values in `index.html` too (search for `wa.me`), or leave them; the JavaScript rewrites them
-   on load.
+   That line is the **only** place the number exists. Every button, every `wa.me` link and the
+   footer display (`+237 653 317 507`) is generated from it at load time — there is nothing to
+   update in `index.html`. The display format is derived automatically, so a 12-digit number
+   reads as `+237 653 317 507` and any other length falls back to `+<digits>`.
+
+   If the value is ever left blank or set to a placeholder such as `000000000`, the script
+   refuses to build links, logs a clear console error and disables the WhatsApp buttons rather
+   than sending guests to a dead destination.
 
 2. **Property content.** Name, headline, apartment descriptions, prices, amenities, location
    copy and the footer disclaimer are all plain HTML in `index.html` — edit in place.
